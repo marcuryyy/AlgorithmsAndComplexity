@@ -1,33 +1,22 @@
-import timeit
-
-N = int(input())
-weights = list(map(int, input().split()))
+import random
+import time
 
 
 def get_min_diff(amount: int, rocks: list[int]):
-    rocks = sorted(rocks)
-    total_sum = 0
-    prefix_sum = []
-    heap_1_sum = 0
-    heap_2_sum = 0
+    total_sum: int = sum(rocks)
+    possible_sums: list[int] = [0 for i in range(total_sum)]
+    sums_length: int = len(possible_sums)
+    possible_sums[0] = 1
+    answer = float('inf')
     for rock in rocks:
-        total_sum += rock
-        prefix_sum.append(total_sum)
-    average = total_sum / amount
-    for rock in rocks:
-        if rock <= average:
-            heap_1_sum += rock
-        else:
-            heap_2_sum += rock
-    first_difference = abs(heap_1_sum - heap_2_sum)
-    if amount > 2:
-        second_difference = min(abs(prefix_sum[amount // 2] - (prefix_sum[-1] - prefix_sum[amount // 2])),
-                                abs(prefix_sum[amount // 2 - 1] - (prefix_sum[-1] - prefix_sum[amount // 2 - 1])),
-                                abs(prefix_sum[amount // 2 + 1] - (prefix_sum[-1] - prefix_sum[amount // 2 + 1])))
-    else:
-        second_difference = float('inf')
-    answer = min(first_difference, second_difference)
+        for j in range(sums_length - 1, rock - 1, -1):
+            if possible_sums[j] != 1:
+                if j == rock:
+                    possible_sums[j] = 1
+                else:
+                    if j - rock >= 0:
+                        possible_sums[j] = possible_sums[j - rock]
+    for i in range(total_sum):
+        if possible_sums[i] == 1:
+            answer = min(answer, abs(i - (total_sum - i)))
     return answer
-
-
-print(get_min_diff(N, weights))
