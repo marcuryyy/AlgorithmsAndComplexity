@@ -17,8 +17,7 @@ def get_permutations_amount(N, M):
             formula = ((N - distance) // (M - 1)) - 1
             total_permutations += formula if formula > 0 else 0
 
-    return total_permutations
+    open("output.txt", "w").write(str(total_permutations))
 
 
 N, M = map(int, open("input.txt").readline().split())
-print(get_permutations_amount(N, M))
