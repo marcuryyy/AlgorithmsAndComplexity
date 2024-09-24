@@ -1,6 +1,6 @@
 N_a, N_b = map(int, input().split())
-first_list = [0 for _ in range(N_a)]
-second_List = [0 for _ in range(N_b)]
+first_list: list[int] = [0 for _ in range(N_a)]
+second_List: list[int] = [0 for _ in range(N_b)]
 
 for i in range(N_a):
     first_list[i] = int(input())
@@ -8,13 +8,13 @@ for i in range(N_a):
 for i in range(N_b):
     second_List[i] = int(input())
 
-first_list_pointer = 0
-second_list_pointer = 0
+first_list_pointer: int = 0
+second_list_pointer: int = 0
 
-first_list_length = len(first_list)
-second_list_length = len(second_List)
+first_list_length: int = len(first_list)
+second_list_length: int = len(second_List)
 
-counter = 0
+counter: int = 0
 
 while True:
     if first_list_pointer < first_list_length and second_list_pointer < second_list_length:

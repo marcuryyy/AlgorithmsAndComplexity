@@ -1,8 +1,4 @@
-import random
-import time
-
-
-def get_min_diff(amount: int, rocks: list[int]):
+def get_min_diff(rocks: list[int]):
     total_sum: int = sum(rocks)
     possible_sums: list[int] = [0 for i in range(total_sum)]
     sums_length: int = len(possible_sums)
