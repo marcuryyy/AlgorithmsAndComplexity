@@ -1,4 +1,5 @@
 import time
+from memory_profiler import memory_usage
 # def calculate_sequence(N, K, M, L):
 #     count_elems = [0 for _ in range(L)]
 #     count_elems[K] += 1
@@ -38,7 +39,7 @@ import time
 
 
 
-
+m_start = memory_usage()[0]
 def calculate_sequence(N, K, M, L):
     count_elems = [0 for _ in range(L)]
     count_elems[K] += 1
@@ -66,7 +67,9 @@ def do_sort(lst: list[int]):
 
 
 N, K, M, L = map(int, input().split())
-
+now = time.perf_counter()
 sequence = calculate_sequence(N, K, M, L)
 
 print(sequence)
+print(f"Затраченное время: {round(time.perf_counter() - now, 2)} секунд")
+print(f"{memory_usage()[0] - m_start} Mb")

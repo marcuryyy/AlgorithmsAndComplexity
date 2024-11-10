@@ -1,14 +1,20 @@
-n: int = int(input())
+import time
+from memory_profiler import memory_usage
 
-
+#n: int = int(input())
+m_start = memory_usage()[0]
+now = 0
 def get_sorted_list(n: int):
+    global now
     people: list[tuple] = []
+    print(people)
     first_elem = 0
     flag = True
     for _ in range(n):
         participant = input().split()
         participant = tuple([participant[0].lower(), int(participant[1]), -int(participant[2])])
-        people.append(participant)
+         #people.append(("alla", 6, -10))
+    now = time.perf_counter()
     people = do_sort(lst=people, step=1)
     people.append(("null", None, None))
     for i in range(n):
@@ -59,4 +65,6 @@ def do_sort(lst: list[tuple], step=1, reverse=False):
         return l_part + [lst[pivot]] + r_part
 
 
-print(get_sorted_list(n))
+print(get_sorted_list(100000))
+print(f"Затраченное время: {round(time.perf_counter() - now, 2)} секунд")
+print(f"{memory_usage()[0] - m_start} Mb")

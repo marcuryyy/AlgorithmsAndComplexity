@@ -1,8 +1,12 @@
+import time
+from memory_profiler import memory_usage
+
+m_start = memory_usage()[0]
 N: int = int(input())
 k: int = int(input())
 
 priorities: list[int] = list(map(int, input().split()))
-
+now = time.perf_counter()
 
 def get_sorted_list(N: int, K: int):
     first_elem = 0
@@ -12,7 +16,10 @@ def get_sorted_list(N: int, K: int):
         data = input().split()
         data_base.append(tuple([data[0], int(data[1]), int(data[2]), int(data[3])]))
     data_base = do_sort(lst=data_base, step=priorities[0])
-    data_base.append(("null", None, None, None))
+    end = ["null"]
+    for i in range(K):
+        end.append(None)
+    data_base.append(end)
     for j in range(1, K):
         for i in range(N):
             if data_base[i][priorities[j-1]] == data_base[i + 1][priorities[j-1]] and flag:
@@ -56,3 +63,5 @@ def do_sort(lst: list[tuple], step=1, reverse=False):
 
 
 print(get_sorted_list(N, k))
+print(f"Затраченное время: {round(time.perf_counter() - now, 2)} секунд")
+print(f"{memory_usage()[0] - m_start} Mb")
